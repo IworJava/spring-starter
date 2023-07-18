@@ -13,6 +13,9 @@
 <!--  <property name="locations" value="classpath:application.properties"/>-->
 <!--</bean>-->
 
+  <bean class="com.iwor.spring.bfpp.LogBeanFactoryPostProcessor"/>
+  <bean class="com.iwor.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
+
   <bean id="driver" class="java.lang.String">
     <constructor-arg type="java.lang.String" value="${db.driver}"/>
   </bean>
