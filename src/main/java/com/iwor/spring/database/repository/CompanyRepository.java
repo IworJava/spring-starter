@@ -4,12 +4,15 @@ import com.iwor.spring.bpp.Auditing;
 import com.iwor.spring.bpp.Transaction;
 import com.iwor.spring.database.entity.Company;
 import com.iwor.spring.database.pool.ConnectionPool;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
 //@Repository
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
