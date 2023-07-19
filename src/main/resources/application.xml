@@ -7,43 +7,33 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-  <context:annotation-config/>
+  <context:component-scan base-package="com.iwor.spring"/>
   <context:property-placeholder location="classpath:application.properties"/>
-
-  <bean class="com.iwor.spring.bpp.InjectBeanPostProcessor"/>
-  <bean class="com.iwor.spring.bpp.TransactionBeanPostProcessor"/>
-  <bean class="com.iwor.spring.bpp.AuditingBeanPostProcessor"/>
-
-  <bean class="com.iwor.spring.bfpp.LogBeanFactoryPostProcessor"/>
-  <bean class="com.iwor.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
-
-  <bean id="companyRepository" class="com.iwor.spring.database.repository.CompanyRepository"/>
 
   <bean id="driver" class="java.lang.String">
     <constructor-arg type="java.lang.String" value="${db.driver}"/>
   </bean>
 
-  <bean id="pool" name="p2" class="com.iwor.spring.database.pool.ConnectionPool" />
-  <bean id="pool1" name="p1" class="com.iwor.spring.database.pool.ConnectionPool">
-    <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>
-    <constructor-arg name="properties" type="java.util.Map">
-      <null/>
-    </constructor-arg>
-    <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>
-    <constructor-arg name="args" type="java.util.List">
-      <list>
-        <value>--arg1=value1</value>
-        <value>--arg2=value2</value>
-      </list>
-    </constructor-arg>
-    <property name="properties">
-      <map>
-        <entry key="url" value="${db.url}"/>
-        <entry key="password" value="${db.password}"/>
-        <entry key="currentUser" value="#{systemProperties['user.name']}"/>
-        <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>
-      </map>
-    </property>
-  </bean>
+<!--  <bean id="pool1" name="p1" class="com.iwor.spring.database.pool.ConnectionPool">-->
+<!--    <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>-->
+<!--    <constructor-arg name="properties" type="java.util.Map">-->
+<!--      <null/>-->
+<!--    </constructor-arg>-->
+<!--    <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>-->
+<!--    <constructor-arg name="args" type="java.util.List">-->
+<!--      <list>-->
+<!--        <value>&#45;&#45;arg1=value1</value>-->
+<!--        <value>&#45;&#45;arg2=value2</value>-->
+<!--      </list>-->
+<!--    </constructor-arg>-->
+<!--    <property name="properties">-->
+<!--      <map>-->
+<!--        <entry key="url" value="${db.url}"/>-->
+<!--        <entry key="password" value="${db.password}"/>-->
+<!--        <entry key="currentUser" value="#{systemProperties['user.name']}"/>-->
+<!--        <entry key="hosts" value="#{'${db.hosts}'.split(',')}"/>-->
+<!--      </map>-->
+<!--    </property>-->
+<!--  </bean>-->
 
 </beans>

@@ -1,32 +1,22 @@
 package com.iwor.spring.database.pool;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
+@Component("pool")
 public class ConnectionPool implements Ordered {
 
-    private String username;
-    private Integer poolSize;
-    private List<Object> args;
-    private Map<String, Object> properties;
+    private final String username;
+    private final Integer poolSize;
 
-    public ConnectionPool() {
-    }
-
-    public ConnectionPool(String username,
-                          Integer poolSize,
-                          List<Object> args,
-                          Map<String, Object> properties) {
+    public ConnectionPool(@Value("${db.username}") String username,
+                          @Value("${db.pool.size}") Integer poolSize) {
         this.username = username;
         this.poolSize = poolSize;
-        this.args = args;
-        this.properties = properties;
-    }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
     }
 
     @Override
@@ -34,5 +24,15 @@ public class ConnectionPool implements Ordered {
         return poolSize != null
                 ? poolSize
                 : Integer.MAX_VALUE;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Init connection pool");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Close connection pool");
     }
 }
