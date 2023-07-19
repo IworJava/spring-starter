@@ -7,14 +7,15 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+  <context:annotation-config/>
   <context:property-placeholder location="classpath:application.properties"/>
 
-<!--<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
-<!--  <property name="locations" value="classpath:application.properties"/>-->
-<!--</bean>-->
+  <bean class="com.iwor.spring.bpp.InjectBeanPostProcessor"/>
 
   <bean class="com.iwor.spring.bfpp.LogBeanFactoryPostProcessor"/>
   <bean class="com.iwor.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
+
+  <bean id="companyRepository" class="com.iwor.spring.database.repository.CompanyRepository"/>
 
   <bean id="driver" class="java.lang.String">
     <constructor-arg type="java.lang.String" value="${db.driver}"/>
