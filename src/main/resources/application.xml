@@ -11,6 +11,8 @@
   <context:property-placeholder location="classpath:application.properties"/>
 
   <bean class="com.iwor.spring.bpp.InjectBeanPostProcessor"/>
+  <bean class="com.iwor.spring.bpp.TransactionBeanPostProcessor"/>
+  <bean class="com.iwor.spring.bpp.AuditingBeanPostProcessor"/>
 
   <bean class="com.iwor.spring.bfpp.LogBeanFactoryPostProcessor"/>
   <bean class="com.iwor.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
