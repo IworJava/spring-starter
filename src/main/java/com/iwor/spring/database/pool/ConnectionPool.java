@@ -1,14 +1,19 @@
 package com.iwor.spring.database.pool;
 
+import org.springframework.core.Ordered;
+
 import java.util.List;
 import java.util.Map;
 
-public class ConnectionPool {
+public class ConnectionPool implements Ordered {
 
-    private final String username;
-    private final Integer poolSize;
-    private final List<Object> args;
+    private String username;
+    private Integer poolSize;
+    private List<Object> args;
     private Map<String, Object> properties;
+
+    public ConnectionPool() {
+    }
 
     public ConnectionPool(String username,
                           Integer poolSize,
@@ -22,5 +27,12 @@ public class ConnectionPool {
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    @Override
+    public int getOrder() {
+        return poolSize != null
+                ? poolSize
+                : Integer.MAX_VALUE;
     }
 }

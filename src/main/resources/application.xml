@@ -23,6 +23,7 @@
     <constructor-arg type="java.lang.String" value="${db.driver}"/>
   </bean>
 
+  <bean id="pool" name="p2" class="com.iwor.spring.database.pool.ConnectionPool" />
   <bean id="pool1" name="p1" class="com.iwor.spring.database.pool.ConnectionPool">
     <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>
     <constructor-arg name="properties" type="java.util.Map">
