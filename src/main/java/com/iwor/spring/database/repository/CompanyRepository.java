@@ -4,14 +4,15 @@ import com.iwor.spring.bpp.Auditing;
 import com.iwor.spring.bpp.Transaction;
 import com.iwor.spring.database.entity.Company;
 import com.iwor.spring.database.pool.ConnectionPool;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
-//@Repository
+@Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
