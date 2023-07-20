@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component("pool")
+@Component("pool1")
 public class ConnectionPool implements Ordered {
 
     private final String username;

@@ -21,8 +21,8 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
 
     private final List<ConnectionPool> pools;
 
-    public CompanyRepository(ConnectionPool p, List<ConnectionPool> pools) {
-        this.p = p;
+    public CompanyRepository(ConnectionPool pool1, List<ConnectionPool> pools) {
+        this.p = pool1;
         this.pools = pools;
     }
 
