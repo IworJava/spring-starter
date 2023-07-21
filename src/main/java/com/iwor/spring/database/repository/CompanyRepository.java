@@ -5,6 +5,7 @@ import com.iwor.spring.bpp.Transaction;
 import com.iwor.spring.database.entity.Company;
 import com.iwor.spring.database.pool.ConnectionPool;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -12,24 +13,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Repository
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    private final ConnectionPool p;
+    private final ConnectionPool pool1;
 
     private final List<ConnectionPool> pools;
-
-    public CompanyRepository(ConnectionPool pool1, List<ConnectionPool> pools) {
-        this.p = pool1;
-        this.pools = pools;
-    }
-
-    public ConnectionPool getP() {
-        return p;
-    }
 
     @Override
     public Optional<Company> findById(Integer id) {
