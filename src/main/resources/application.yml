@@ -24,3 +24,10 @@ db:
 spring.profiles.active:
   - web
   - prod
+
+logging:
+  level:
+    root: INFO
+#    com.iwor.spring.database.pool.ConnectionPool: INFO
+  file:
+    name: 'logs/all.log'
