@@ -29,5 +29,5 @@ logging:
   level:
     root: INFO
 #    com.iwor.spring.database.pool.ConnectionPool: INFO
-  file:
-    name: 'logs/all.log'
+#  file:
+#    name: 'logs/all.log'
