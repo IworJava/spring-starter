@@ -1,5 +1,5 @@
 db:
-  username: postgres
+  username: ${username.value:postgres}
   password: pass
   driver: PostgresDriver
   url: postgres:5432
