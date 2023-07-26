@@ -31,7 +31,9 @@ class CompanyServiceTest {
 
     @Test
     void findById() {
-        Mockito.doReturn(Optional.of(new Company(COMPANY_ID)))
+        Mockito.doReturn(Optional.of(Company.builder()
+                        .id(COMPANY_ID)
+                        .build()))
                 .when(companyRepository).findById(COMPANY_ID);
 
         var expected = new CompanyReadDto(COMPANY_ID);

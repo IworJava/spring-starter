@@ -31,3 +31,19 @@ logging:
 #    com.iwor.spring.database.pool.ConnectionPool: INFO
 #  file:
 #    name: 'logs/all.log'
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: postgres
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: validate
+    properties.hibernate:
+        format_sql: true
+        show_sql: true
+        hbm2ddl.auto: validate
+    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
