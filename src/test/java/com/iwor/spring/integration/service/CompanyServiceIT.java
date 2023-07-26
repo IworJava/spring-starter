@@ -10,13 +10,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = ApplicationRunner.class
-//        , initializers = ConfigDataApplicationContextInitializer.class
-//)
 @IT
 @RequiredArgsConstructor
-//@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class CompanyServiceIT {
 
     private static final Integer COMPANY_ID = 1;

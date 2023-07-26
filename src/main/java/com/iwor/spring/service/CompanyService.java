@@ -8,11 +8,14 @@ import com.iwor.spring.listener.entity.EntityEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Component
+@Transactional(propagation = Propagation.REQUIRED)
 public class CompanyService {
 
     private final CrudRepository<Integer, Company> companyRepository;
