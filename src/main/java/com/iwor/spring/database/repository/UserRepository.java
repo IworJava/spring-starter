@@ -2,6 +2,8 @@ package com.iwor.spring.database.repository;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    Page<User> findAllBy(Pageable pageable);
 
     List<User> findBy(Sort sort);
 

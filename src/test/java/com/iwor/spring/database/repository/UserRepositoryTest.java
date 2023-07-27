@@ -5,6 +5,7 @@ import com.iwor.spring.database.entity.User;
 import com.iwor.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -20,6 +21,27 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkPageable() {
+        var pageRequest = PageRequest.of(1, 2, Sort.sort(User.class).by(User::getId));
+
+        var slice = userRepository.findAllBy(pageRequest);
+        var users = slice.getContent();
+
+        assertThat(users).isNotEmpty();
+        assertThat(users).hasSize(2);
+        assertThat(users.get(0).getId()).isEqualTo(3);
+        assertThat(users.get(1).getId()).isEqualTo(4);
+
+        if (slice.hasNext()) {
+            var nextSlice = userRepository.findAllBy(slice.nextPageable());
+            var nextUsers = nextSlice.getContent();
+            assertThat(nextUsers).isNotEmpty();
+            assertThat(nextUsers).hasSize(1);
+            assertThat(nextUsers.get(0).getId()).isEqualTo(5);
+        }
+    }
 
     @Test
     void checkSort() {
