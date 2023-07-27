@@ -1,7 +1,6 @@
 package com.iwor.spring.service;
 
-import com.iwor.spring.database.entity.Company;
-import com.iwor.spring.database.repository.CrudRepository;
+import com.iwor.spring.database.repository.CompanyRepository;
 import com.iwor.spring.database.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,5 +10,5 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final CrudRepository<Integer, Company> companyRepository;
+    private final CompanyRepository companyRepository;
 }

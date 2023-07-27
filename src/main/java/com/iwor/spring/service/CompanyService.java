@@ -1,7 +1,6 @@
 package com.iwor.spring.service;
 
-import com.iwor.spring.database.entity.Company;
-import com.iwor.spring.database.repository.CrudRepository;
+import com.iwor.spring.database.repository.CompanyRepository;
 import com.iwor.spring.dto.CompanyReadDto;
 import com.iwor.spring.listener.entity.AccessType;
 import com.iwor.spring.listener.entity.EntityEvent;
@@ -18,7 +17,7 @@ import java.util.Optional;
 @Transactional(propagation = Propagation.REQUIRED)
 public class CompanyService {
 
-    private final CrudRepository<Integer, Company> companyRepository;
+    private final CompanyRepository companyRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     public Optional<CompanyReadDto> findById(Integer id) {

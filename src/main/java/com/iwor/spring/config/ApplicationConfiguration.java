@@ -1,14 +1,12 @@
 package com.iwor.spring.config;
 
 import com.iwor.spring.database.pool.ConnectionPool;
-import com.iwor.spring.database.repository.UserRepository;
 import com.iwor.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
 @Configuration(proxyBeanMethods = true)
@@ -34,20 +32,5 @@ public class ApplicationConfiguration {
     @Bean
     public ConnectionPool pool3() {
         return new ConnectionPool("test-name", 25);
-    }
-
-    @Bean
-    @Profile("prod|web")
-    public UserRepository userRepository2(ConnectionPool pool2) {
-        return new UserRepository(pool2);
-    }
-
-    @Profile("dev")
-    @Bean
-    public UserRepository userRepository3() {
-        var connectionPool1 = pool3();
-        var connectionPool2 = pool3();
-        var connectionPool3 = pool3();
-        return new UserRepository(pool3());
     }
 }

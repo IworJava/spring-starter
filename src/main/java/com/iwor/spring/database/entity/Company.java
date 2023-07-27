@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -36,6 +37,7 @@ import java.util.Map;
                 @NamedAttributeNode("users")
         }
 )
+@NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE lower(c.name) = lower(:name2)")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

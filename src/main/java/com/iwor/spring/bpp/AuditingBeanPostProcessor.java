@@ -1,6 +1,6 @@
 package com.iwor.spring.bpp;
 
-import com.iwor.spring.database.repository.CrudRepository;
+import com.iwor.spring.database.repository.CompanyRepository;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
@@ -32,7 +32,7 @@ public Object postProcessBeforeInitialization(Object bean, String beanName) thro
                     beanClass.getClassLoader(),
                     beanClass.getInterfaces(),
                     (proxy, method, args) -> {
-                        if (Arrays.stream(CrudRepository.class.getDeclaredMethods())
+                        if (Arrays.stream(CompanyRepository.class.getDeclaredMethods())
                                 .map(Method::getName)
                                 .anyMatch(m -> m.equals(method.getName()))
                         ) {

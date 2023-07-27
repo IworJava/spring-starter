@@ -1,7 +1,7 @@
 package com.iwor.spring.service;
 
 import com.iwor.spring.database.entity.Company;
-import com.iwor.spring.database.repository.CrudRepository;
+import com.iwor.spring.database.repository.CompanyRepository;
 import com.iwor.spring.dto.CompanyReadDto;
 import com.iwor.spring.listener.entity.EntityEvent;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class CompanyServiceTest {
     private static final Integer COMPANY_ID = 1;
 
     @Mock
-    private CrudRepository<Integer, Company> companyRepository;
+    private CompanyRepository companyRepository;
     @Mock
     private ApplicationEventPublisher eventPublisher;
     @InjectMocks
