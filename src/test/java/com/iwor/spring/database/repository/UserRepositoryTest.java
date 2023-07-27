@@ -33,6 +33,7 @@ class UserRepositoryTest {
         assertThat(users).hasSize(2);
         assertThat(users.get(0).getId()).isEqualTo(3);
         assertThat(users.get(1).getId()).isEqualTo(4);
+        users.forEach(user -> System.out.println(user.getCompany().getName()));
 
         if (slice.hasNext()) {
             var nextSlice = userRepository.findAllBy(slice.nextPageable());
@@ -40,6 +41,7 @@ class UserRepositoryTest {
             assertThat(nextUsers).isNotEmpty();
             assertThat(nextUsers).hasSize(1);
             assertThat(nextUsers.get(0).getId()).isEqualTo(5);
+            nextUsers.forEach(user -> System.out.println(user.getCompany().getName()));
         }
     }
 
