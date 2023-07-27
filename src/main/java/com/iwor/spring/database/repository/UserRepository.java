@@ -2,13 +2,19 @@ package com.iwor.spring.database.repository;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    List<User> findBy(Sort sort);
+
+    List<User> findTop3ByBirthDateBeforeOrderByIdDesc(LocalDate birthDate);
 
     @Query("select u from User u " +
             "where lower(u.firstname) like lower(concat('%', :firstname, '%')) " +
