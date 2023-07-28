@@ -2,6 +2,7 @@ package com.iwor.spring.database.repository;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
+import com.iwor.spring.dto.PersonalInfo2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +15,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Query(value = "SELECT firstname, lastname, birth_date birthDate " +
+            "FROM spring.users WHERE company_id = :companyId",
+            nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(Integer companyId);
+
+    <T> List<T> findAllByCompanyId(Integer companyId, Class<T> clazz);
 
     @EntityGraph(attributePaths = "company")
     @Query(value = "select u from User u",

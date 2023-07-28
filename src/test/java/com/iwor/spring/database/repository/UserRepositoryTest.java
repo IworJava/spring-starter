@@ -2,6 +2,8 @@ package com.iwor.spring.database.repository;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
+import com.iwor.spring.dto.PersonalInfo;
+import com.iwor.spring.dto.PersonalInfo2;
 import com.iwor.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,15 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkProjections() {
+        var users = userRepository.findAllByCompanyId(1, PersonalInfo.class);
+        var users2 = userRepository.findAllByCompanyId(1, PersonalInfo2.class);
+
+        assertThat(users).hasSize(2);
+        assertThat(users2).hasSize(2);
+    }
 
     @Test
     void checkPageable() {
