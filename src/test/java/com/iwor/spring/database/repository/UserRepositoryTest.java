@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 
@@ -27,6 +28,7 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    @Commit
     void checkAuditing() {
         var user = userRepository.findById(1L).orElseThrow();
         user.setBirthDate(user.getBirthDate().plusYears(1L));

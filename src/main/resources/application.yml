@@ -40,10 +40,10 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
 #    show-sql: true
-#    hibernate:
+    hibernate:
 #      ddl-auto: validate
+      naming.physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     properties.hibernate:
-        format_sql: true
         show_sql: true
+        format_sql: true
         hbm2ddl.auto: validate
-    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
