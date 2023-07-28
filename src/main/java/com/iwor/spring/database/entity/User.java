@@ -21,6 +21,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,12 +33,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "username")
+@EqualsAndHashCode(callSuper = true, of = "username")
 @ToString(exclude = {"company", "payments", "chats"})
 @Builder
 @Entity
+@DynamicUpdate
 @Table(schema = "spring", name = "users")
-public class User implements BaseEntity<Long> {
+public class User extends AuditingEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

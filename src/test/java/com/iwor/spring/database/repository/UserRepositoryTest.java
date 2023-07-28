@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @RequiredArgsConstructor
@@ -24,6 +25,19 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkAuditing() {
+        var user = userRepository.findById(1L).orElseThrow();
+        user.setBirthDate(user.getBirthDate().plusYears(1L));
+
+        userRepository.flush();
+
+        var modifiedAt = user.getModifiedAt();
+        var modifiedBy = user.getModifiedBy();
+        assertNotNull(modifiedAt);
+        assertNotNull(modifiedBy);
+    }
 
     @Test
     void checkCustomImplementation() {
