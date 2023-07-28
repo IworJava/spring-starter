@@ -4,6 +4,7 @@ import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
 import com.iwor.spring.dto.PersonalInfo;
 import com.iwor.spring.dto.PersonalInfo2;
+import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkCustomImplementation() {
+        var users = userRepository.findAllByFilter(
+                new UserFilter("%I%", null, LocalDate.now()));
+    }
 
     @Test
     void checkProjections() {

@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository {
 
     @Query(value = "SELECT firstname, lastname, birth_date birthDate " +
             "FROM spring.users WHERE company_id = :companyId",
