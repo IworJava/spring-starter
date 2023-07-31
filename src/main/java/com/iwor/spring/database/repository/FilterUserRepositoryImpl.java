@@ -10,13 +10,28 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @Repository
 public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     private final EntityManager em;
 
-    @Override
+//    @Override
+//    public List<User> findAllByFilter(UserFilter filter) {
+//        var predicate = QPredicates.builder()
+//                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+//                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+//                .add(filter.birthDate(), user.birthDate::before)
+//                .buildAnd();
+//        return new JPAQuery<User>(em)
+//                .select(user)
+//                .from(user)
+//                .where(predicate)
+//                .fetch();
+//    }
+
+@Override
     public List<User> findAllByFilter(UserFilter filter) {
         var cb = em.getCriteriaBuilder();
         var criteriaQuery = cb.createQuery(User.class);

@@ -45,6 +45,8 @@ class UserRepositoryTest {
     void checkCustomImplementation() {
         var users = userRepository.findAllByFilter(
                 new UserFilter("%I%", null, LocalDate.now()));
+
+        assertThat(users).hasSize(1);
     }
 
     @Test
