@@ -16,7 +16,8 @@ import java.util.List;
 
 public interface UserRepository extends
         JpaRepository<User, Long>,
-        FilterUserRepository
+        FilterUserRepository,
+        UserJdbcRepository
 //        , QuerydslPredicateExecutor<User>
 {
 

@@ -31,7 +31,7 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
 //                .fetch();
 //    }
 
-@Override
+    @Override
     public List<User> findAllByFilter(UserFilter filter) {
         var cb = em.getCriteriaBuilder();
         var criteriaQuery = cb.createQuery(User.class);

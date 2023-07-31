@@ -28,6 +28,26 @@ class UserRepositoryTest {
     private final UserRepository userRepository;
 
     @Test
+    void checkUserRepositoryFetch() {
+
+    }
+
+    @Test
+    void checkUserRepositoryBatch() {
+        var users = userRepository.findAll();
+        var updated = userRepository.updateCompanyAndRoleNamed(users);
+
+        assertThat(updated).hasSize(users.size());
+    }
+
+    @Test
+    void checkJdbcTemplate() {
+        var users = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+
+        assertThat(users).hasSize(1);
+    }
+
+    @Test
     @Commit
     void checkAuditing() {
         var user = userRepository.findById(1L).orElseThrow();
