@@ -13,7 +13,7 @@ import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,7 +45,7 @@ import java.util.Map;
 @ToString(exclude = "locales")
 @Builder
 @Entity
-@Table(schema = "spring")
+//@Table(schema = "spring")
 public class Company implements BaseEntity<Integer> {
 
     @Id
@@ -56,7 +56,8 @@ public class Company implements BaseEntity<Integer> {
 
     @Builder.Default
     @ElementCollection
-    @CollectionTable(schema = "spring", name = "company_locales",
+    @CollectionTable(name = "company_locales",
+//    @CollectionTable(schema = "spring", name = "company_locales",
             joinColumns = @JoinColumn(name = "company_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"lang", "company_id"}))
     @MapKeyColumn(name = "lang")
@@ -72,5 +73,10 @@ public class Company implements BaseEntity<Integer> {
             this.users.add(user);
             user.setCompany(this);
         });
+    }
+
+    @PreRemove
+    public void nullification() {
+        users.forEach(user -> user.setCompany(null));
     }
 }

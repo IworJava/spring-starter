@@ -41,7 +41,8 @@ import java.util.List;
 @Builder
 @Entity
 @DynamicUpdate
-@Table(schema = "spring", name = "users")
+@Table(name = "users")
+//@Table(schema = "spring", name = "users")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class User extends AuditingEntity<Long> {
 
@@ -60,7 +61,7 @@ public class User extends AuditingEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 

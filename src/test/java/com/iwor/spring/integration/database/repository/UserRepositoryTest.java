@@ -1,16 +1,16 @@
-package com.iwor.spring.database.repository;
+package com.iwor.spring.integration.database.repository;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.database.entity.User;
+import com.iwor.spring.database.repository.UserRepository;
 import com.iwor.spring.dto.PersonalInfo;
 import com.iwor.spring.dto.PersonalInfo2;
 import com.iwor.spring.dto.UserFilter;
-import com.iwor.spring.integration.annotation.IT;
+import com.iwor.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 
@@ -22,8 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @RequiredArgsConstructor
-@IT
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
@@ -48,7 +47,6 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Commit
     void checkAuditing() {
         var user = userRepository.findById(1L).orElseThrow();
         user.setBirthDate(user.getBirthDate().plusYears(1L));

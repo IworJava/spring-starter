@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +21,7 @@ import java.util.List;
 @ToString(exclude = "users")
 @Builder
 @Entity
-@Table(schema = "spring")
+//@Table(schema = "spring")
 public class Chat implements BaseEntity<Long> {
 
     @Id

@@ -21,24 +21,20 @@ public class UserJdbcRepositoryImpl implements UserJdbcRepository {
                 firstname,
                 lastname,
                 birth_date
-            FROM spring.users
+            FROM users
             WHERE company_id = ? AND role = ?
             """;
     private static final String UPDATE_COMPANY_AND_ROLE_SQL = """
-            UPDATE spring.users
+            UPDATE users
             SET company_id = ?,
                 role = ?
             WHERE id = ?
             """;
     private static final String UPDATE_COMPANY_AND_ROLE_NAMED_SQL = """
-            UPDATE spring.users
+            UPDATE users
             SET company_id = :company_id,
                 role = :role
             WHERE id = :id
-            """;
-
-    private static final String FIND_ALL_FETCH_SQL = """
-            SELECT * FROM spring.users;
             """;
 
     private final JdbcTemplate jdbcTemplate;
