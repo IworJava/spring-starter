@@ -2,6 +2,7 @@ package com.iwor.spring.integration.service;
 
 import com.iwor.spring.config.DatabaseProperties;
 import com.iwor.spring.dto.CompanyReadDto;
+import com.iwor.spring.integration.IntegrationTestBase;
 import com.iwor.spring.integration.annotation.IT;
 import com.iwor.spring.service.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @IT
 @RequiredArgsConstructor
-public class CompanyServiceIT {
+public class CompanyServiceIT extends IntegrationTestBase {
 
     private static final Integer COMPANY_ID = 1;
 

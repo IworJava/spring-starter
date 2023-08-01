@@ -22,7 +22,7 @@ public interface UserRepository extends
 {
 
     @Query(value = "SELECT firstname, lastname, birth_date birthDate " +
-            "FROM spring.users WHERE company_id = :companyId",
+            "FROM users WHERE company_id = :companyId",
             nativeQuery = true)
     List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 

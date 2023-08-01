@@ -21,7 +21,6 @@ import lombok.ToString;
 @ToString(exclude = "receiver")
 @Builder
 @Entity
-//@Table(schema = "spring")
 public class Payment implements BaseEntity<Long> {
 
     @Id

@@ -1,6 +1,7 @@
 package com.iwor.spring.integration.service;
 
 import com.iwor.spring.database.pool.ConnectionPool;
+import com.iwor.spring.integration.IntegrationTestBase;
 import com.iwor.spring.integration.annotation.IT;
 import com.iwor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 @IT
 @RequiredArgsConstructor
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class UserServiceIT {
+public class UserServiceIT extends IntegrationTestBase {
 
     private final UserService userService;
     private final ConnectionPool pool1;

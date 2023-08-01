@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-//@Table(schema = "spring")
 public class UserChat {
 
     @Id

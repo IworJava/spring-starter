@@ -16,7 +16,6 @@ import org.hibernate.envers.RevisionTimestamp;
 @AllArgsConstructor
 @Entity
 @RevisionEntity
-//@Table(schema = "spring")
 public class Revision {
 
     @Id

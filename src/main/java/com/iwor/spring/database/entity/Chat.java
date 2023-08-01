@@ -21,7 +21,6 @@ import java.util.List;
 @ToString(exclude = "users")
 @Builder
 @Entity
-//@Table(schema = "spring")
 public class Chat implements BaseEntity<Long> {
 
     @Id

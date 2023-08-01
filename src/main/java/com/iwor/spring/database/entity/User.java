@@ -42,7 +42,6 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @Table(name = "users")
-//@Table(schema = "spring", name = "users")
 @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class User extends AuditingEntity<Long> {
 

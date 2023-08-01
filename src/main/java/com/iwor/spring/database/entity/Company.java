@@ -45,7 +45,6 @@ import java.util.Map;
 @ToString(exclude = "locales")
 @Builder
 @Entity
-//@Table(schema = "spring")
 public class Company implements BaseEntity<Integer> {
 
     @Id
@@ -57,7 +56,6 @@ public class Company implements BaseEntity<Integer> {
     @Builder.Default
     @ElementCollection
     @CollectionTable(name = "company_locales",
-//    @CollectionTable(schema = "spring", name = "company_locales",
             joinColumns = @JoinColumn(name = "company_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"lang", "company_id"}))
     @MapKeyColumn(name = "lang")

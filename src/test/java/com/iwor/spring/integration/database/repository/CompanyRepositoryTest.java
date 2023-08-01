@@ -26,7 +26,7 @@ class CompanyRepositoryTest extends IntegrationTestBase {
     @Test
     void checkFindByQueries() {
         var company = companyRepository.findByName("Google");
-        companyRepository.findAllByNameContainingIgnoreCase("OO");
+        var companies = companyRepository.findAllByNameContainingIgnoreCase("OO");
     }
 
     @Test
