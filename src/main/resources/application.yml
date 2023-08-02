@@ -21,10 +21,6 @@ db:
     second: 345
     third.value: Third
 
-spring.profiles.active:
-  - web
-  - prod
-
 logging:
   level:
     root: INFO
@@ -33,7 +29,16 @@ logging:
 #  file:
 #    name: 'logs/all.log'
 
+server.port: 8081
+
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  profiles.active:
+    - web
+    - prod
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
     username: postgres
@@ -50,7 +55,6 @@ spring:
       show_sql: true
       format_sql: true
       hbm2ddl.auto: validate
-
   jdbc:
     template:
       fetch-size: 3
