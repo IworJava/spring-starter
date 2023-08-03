@@ -6,7 +6,7 @@
 </head>
 <body>
 
-HELLO WORLD!
+HELLO ${sessionScope.user.username}!
 
 </body>
 </html>
