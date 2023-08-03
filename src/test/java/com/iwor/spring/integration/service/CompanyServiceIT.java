@@ -22,7 +22,7 @@ public class CompanyServiceIT extends IntegrationTestBase {
 
     @Test
     void getById() {
-        var expected = new CompanyReadDto(COMPANY_ID);
+        var expected = new CompanyReadDto(COMPANY_ID, null);
         var actual = companyService.findById(COMPANY_ID);
 
         assertTrue(actual.isPresent());

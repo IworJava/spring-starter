@@ -42,7 +42,7 @@ public class GreetingController {
                         HttpServletRequest request,
                         HttpServletResponse response) {
 //        modelAndView.addObject("user", new UserReadDto(1L, "aabbaa"));
-        model.addAttribute("user", new UserReadDto(1L, "aabbaa"));
+        model.addAttribute("user", UserReadDto.builder().id(1L).username("aabbaa").build());
         return "greeting/hello";
     }
 

@@ -36,7 +36,7 @@ class CompanyServiceTest {
                         .build()))
                 .when(companyRepository).findById(COMPANY_ID);
 
-        var expected = new CompanyReadDto(COMPANY_ID);
+        var expected = new CompanyReadDto(COMPANY_ID, null);
         var actual = companyService.findById(COMPANY_ID);
 
         Mockito.verify(eventPublisher).publishEvent(Mockito.any(EntityEvent.class));
