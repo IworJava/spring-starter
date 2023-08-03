@@ -7,6 +7,7 @@
 <body>
 
 HELLO ${sessionScope.user.username}!
-
+<br><br>
+<button><a href="${pageContext.request.contextPath}/api/v1/login">Login</a></button>
 </body>
 </html>

@@ -31,6 +31,11 @@ public class GreetingController {
         return Arrays.asList(Role.values());
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "redirect:/login";
+    }
+
     @GetMapping("/hello")
     public String hello(ModelAndView modelAndView,
                         Model model,
