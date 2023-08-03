@@ -54,6 +54,7 @@ public class UserService {
         return userRepository.findById(id)
                 .map(user -> {
                     userRepository.delete(user);
+                    userRepository.flush();
                     return true;
                 })
                 .orElse(false);

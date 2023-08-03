@@ -1,5 +1,6 @@
 package com.iwor.spring.database.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -66,7 +67,7 @@ public class User extends AuditingEntity<Long> {
 
     @NotAudited
     @Builder.Default
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     private List<Payment> payments = new ArrayList<>();
 
     @NotAudited

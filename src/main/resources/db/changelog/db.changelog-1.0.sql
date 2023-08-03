@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS company
 --changeset iw:2
 CREATE TABLE IF NOT EXISTS company_locales
 (
-    company_id INT REFERENCES company (id),
+    company_id INT REFERENCES company (id) ON DELETE CASCADE,
     lang VARCHAR(2),
     description VARCHAR(255) NOT NULL ,
     PRIMARY KEY (company_id, lang)
@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS users
 --changeset iw:4
 CREATE TABLE IF NOT EXISTS payment
 (
-    id BIGSERIAL PRIMARY KEY ,
+    id BIGSERIAL PRIMARY KEY,
     amount INT NOT NULL ,
-    receiver_id BIGINT NOT NULL REFERENCES users (id)
+    receiver_id BIGINT NOT NULL REFERENCES users (id) ON DELETE CASCADE
 );
 --DROP TABLE payment
 
