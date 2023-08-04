@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
 </head>
 <body>
 
-HELLO ${sessionScope.user.username}!
-<br><br>
+<p>HELLO <span th:text="${user.username}">Ivan</span>!</p>
+<p th:text="|HELLO ${user.username}!|">HELLO user</p>
+
 <button><a href="${pageContext.request.contextPath}/api/v1/login">Login</a></button>
+
 </body>
 </html>

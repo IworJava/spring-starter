@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Bye</title>
 </head>
 <body>
 
-BYE WORLD!
+<p th:text="|BYE ${session.user.username}!|">!
 
 </body>
 </html>

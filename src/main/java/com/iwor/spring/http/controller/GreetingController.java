@@ -62,9 +62,9 @@ public class GreetingController {
         return modelAndView;
     }
 
-    @GetMapping("/bye{id}")
+    @GetMapping("/bye")
     public ModelAndView bye(ModelAndView modelAndView,
-                            @SessionAttribute(required = false) UserReadDto user) {
+                            @SessionAttribute UserReadDto user) {
         modelAndView.setViewName("greeting/bye");
         return modelAndView;
     }
