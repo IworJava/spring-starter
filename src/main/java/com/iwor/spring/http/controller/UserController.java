@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public String getAll(Model model) {
+    public String findAll(Model model) {
         model.addAttribute("users", userService.findAll());
         return "user/users";
     }
@@ -38,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+//    @ResponseStatus(HttpStatus.CREATED)
     public String create(UserCreatEditDto dto) {
         return "redirect:/users/" + userService.create(dto).getId();
     }
