@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users_aud
     id BIGINT,
     rev BIGINT REFERENCES revision (id),
     revtype SMALLINT,
-    username VARCHAR(64) NOT NULL UNIQUE,
+    username VARCHAR(64) NOT NULL,
     birth_date DATE,
     firstname VARCHAR(64),
     lastname VARCHAR(64),
