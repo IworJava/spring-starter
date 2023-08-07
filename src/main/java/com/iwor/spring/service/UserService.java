@@ -1,12 +1,15 @@
 package com.iwor.spring.service;
 
+import com.iwor.spring.database.entity.User;
 import com.iwor.spring.database.repository.UserRepository;
+import com.iwor.spring.dto.PageResponse;
 import com.iwor.spring.dto.UserCreatEditDto;
 import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.dto.UserReadDto;
 import com.iwor.spring.mapper.UserCreateEditMapper;
 import com.iwor.spring.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,10 @@ public class UserService {
         return userRepository.findAllByFilter(filter).stream()
                 .map(userReadMapper::map)
                 .toList();
+    }
+
+    public PageResponse<User> findAll(UserFilter filter, Pageable pageable) {
+        return userRepository.findAllByFilter(filter, pageable);
     }
 
     public Optional<UserReadDto> findById(Long id) {

@@ -6,6 +6,7 @@ import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.service.CompanyService;
 import com.iwor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,10 @@ public class UserController {
     @GetMapping
     public String findAll(Model model,
                           @ModelAttribute("filter") UserFilter filter,
-                          RedirectAttributes redirectAttributes) {
-        model.addAttribute("users", userService.findAll(filter));
+                          RedirectAttributes redirectAttributes,
+                          Pageable pageable) {
+        var pageResponse = userService.findAll(filter, pageable);
+        model.addAttribute("users", pageResponse);
         redirectAttributes.addFlashAttribute("filter", filter);
         return "user/users";
     }
