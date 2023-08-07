@@ -22,7 +22,7 @@ public class UserService {
     private final UserCreateEditMapper userCreateEditMapper;
 
     public List<UserReadDto> findAll() {
-        return userRepository.findAll().stream()
+        return userRepository.findAllByOrderById().stream()
                 .map(userReadMapper::map)
                 .toList();
     }

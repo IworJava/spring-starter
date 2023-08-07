@@ -10,9 +10,11 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends
         JpaRepository<User, Long>,
@@ -21,8 +23,15 @@ public interface UserRepository extends
 //        , QuerydslPredicateExecutor<User>
 {
 
+    @Override
+    @EntityGraph(attributePaths = "company")
+    Optional<User> findById(@NonNull Long aLong);
+
+    @EntityGraph(attributePaths = "company")
+    List<User> findAllByOrderById();
+
     @Query(value = "SELECT firstname, lastname, birth_date birthDate " +
-            "FROM users WHERE company_id = :companyId",
+                   "FROM users WHERE company_id = :companyId",
             nativeQuery = true)
     List<PersonalInfo2> findAllByCompanyId(Integer companyId);
 
