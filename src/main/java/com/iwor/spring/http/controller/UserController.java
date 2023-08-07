@@ -2,6 +2,7 @@ package com.iwor.spring.http.controller;
 
 import com.iwor.spring.database.entity.Role;
 import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.service.CompanyService;
 import com.iwor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,11 @@ public class UserController {
     private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model,
+                          @ModelAttribute("filter") UserFilter filter,
+                          RedirectAttributes redirectAttributes) {
+        model.addAttribute("users", userService.findAll(filter));
+        redirectAttributes.addFlashAttribute("filter", filter);
         return "user/users";
     }
 
@@ -54,10 +58,10 @@ public class UserController {
     @PostMapping
     public String create(UserCreatEditDto dto, RedirectAttributes redirectAttributes) {
         // TODO: 07.08.23 редирект на случай невалидных данных
-//        if (true) {
-//            redirectAttributes.addFlashAttribute("user", dto);
-//            return "redirect:users/registration";
-//        }
+        if (true) {
+            redirectAttributes.addFlashAttribute("user", dto);
+            return "redirect:users/registration";
+        }
         return "redirect:/users/" + userService.create(dto).getId();
     }
 

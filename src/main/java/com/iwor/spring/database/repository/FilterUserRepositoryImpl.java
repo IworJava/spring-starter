@@ -5,14 +5,11 @@ import com.iwor.spring.dto.UserFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @RequiredArgsConstructor
-@Repository
 public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     private final EntityManager em;
@@ -40,10 +37,10 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
 
         List<Predicate> predicates = new ArrayList<>();
         if (filter.firstname() != null) {
-            predicates.add(cb.like(user.get("firstname"), filter.firstname()));
+            predicates.add(cb.like(cb.lower(user.get("firstname")), "%" + filter.firstname().toLowerCase() + "%"));
         }
         if (filter.lastname() != null) {
-            predicates.add(cb.like(user.get("lastname"), filter.lastname()));
+            predicates.add(cb.like(cb.lower(user.get("lastname")), "%" + filter.lastname().toLowerCase() + "%"));
         }
         if (filter.birthDate() != null) {
             predicates.add(cb.lessThan(user.get("birthDate"), filter.birthDate()));

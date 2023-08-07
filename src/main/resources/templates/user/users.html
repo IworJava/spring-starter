@@ -6,6 +6,19 @@
 </head>
 <body>
 
+<form action="/users" th:object="${filter}">
+  <label for="firstname">Firstname:
+    <input id="firstname" type="text" name="firstname" th:value="*{firstname}">
+  </label>
+  <label for="lastname">Lastname:
+    <input id="lastname" type="text" name="lastname" th:value="*{lastname}">
+  </label>
+  <label for="birthDate">BirthDate:
+    <input id="birthDate" type="date" name="birthDate" th:value="*{birthDate}">
+  </label>
+  <button type="submit">Filter</button>
+</form>
+
 <div>
   <ul>
     <th:block th:each="user : ${users}">

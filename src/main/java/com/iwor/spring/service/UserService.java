@@ -2,6 +2,7 @@ package com.iwor.spring.service;
 
 import com.iwor.spring.database.repository.UserRepository;
 import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.dto.UserReadDto;
 import com.iwor.spring.mapper.UserCreateEditMapper;
 import com.iwor.spring.mapper.UserReadMapper;
@@ -23,6 +24,12 @@ public class UserService {
 
     public List<UserReadDto> findAll() {
         return userRepository.findAllByOrderById().stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
+
+    public List<UserReadDto> findAll(UserFilter filter) {
+        return userRepository.findAllByFilter(filter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }
