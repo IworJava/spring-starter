@@ -52,8 +52,8 @@ public class UserController {
                     model.addAttribute("companies", companyService.findAll());
                     return "user/user";
                 })
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-                .orElse("redirect:/users");
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                .orElse("redirect:/users");
     }
 
     @GetMapping("/registration")
