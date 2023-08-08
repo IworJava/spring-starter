@@ -5,11 +5,16 @@ import com.iwor.spring.dto.UserCreatEditDto;
 import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.service.CompanyService;
 import com.iwor.spring.service.UserService;
+import com.iwor.spring.validation.group.Creation;
+import com.iwor.spring.validation.group.Update;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +52,8 @@ public class UserController {
                     model.addAttribute("companies", companyService.findAll());
                     return "user/user";
                 })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElse("redirect:/users");
     }
 
     @GetMapping("/registration")
@@ -59,10 +65,12 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(UserCreatEditDto dto, RedirectAttributes redirectAttributes) {
-        // TODO: 07.08.23 редирект на случай невалидных данных
-        if (true) {
+    public String create(@Validated({Default.class, Creation.class}) UserCreatEditDto dto,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", dto);
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
             return "redirect:users/registration";
         }
         return "redirect:/users/" + userService.create(dto).getId();
@@ -72,7 +80,13 @@ public class UserController {
 //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable Long id,
-                         UserCreatEditDto dto) {
+                         @Validated({Default.class, Update.class}) UserCreatEditDto dto,
+                         BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
+            return "redirect:/users/" + id;
+        }
         return userService.update(id, dto)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

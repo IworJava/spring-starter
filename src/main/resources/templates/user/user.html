@@ -57,5 +57,9 @@
     <button type="submit">Remove</button>
 </form>
 
+<div th:if="${errors}">
+    <p style="color: brown" th:each="error : ${errors}" th:text="|${error.field}: ${error.defaultMessage}|">Error message</p>
+</div>
+
 </body>
 </html>

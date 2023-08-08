@@ -25,7 +25,7 @@
     <br>
     <span>Role: </span>
     <div th:each="role : ${roles}">
-        <input th:id="|role_${role}|" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+        <input th:id="|role_${role}|" type="radio" name="role" th:value="${role}" th:checked="${role == user.role || role.name == 'USER'}">
         <label th:for="|role_${role}|" th:text="${role}"></label>
     </div>
     <br>
@@ -43,6 +43,10 @@
     <br>
     <button type="submit">Register</button>
 </form>
+
+<div th:if="${errors}">
+    <p style="color: brown" th:each="error : ${errors}" th:text="|${error.field}: ${error.defaultMessage}|">Error message</p>
+</div>
 
 </body>
 </html>
