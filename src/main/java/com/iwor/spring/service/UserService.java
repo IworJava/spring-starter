@@ -1,6 +1,5 @@
 package com.iwor.spring.service;
 
-import com.iwor.spring.database.entity.User;
 import com.iwor.spring.database.repository.UserRepository;
 import com.iwor.spring.dto.PageResponse;
 import com.iwor.spring.dto.UserCreatEditDto;
@@ -37,8 +36,8 @@ public class UserService {
                 .toList();
     }
 
-    public PageResponse<User> findAll(UserFilter filter, Pageable pageable) {
-        return userRepository.findAllByFilter(filter, pageable);
+    public PageResponse<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
+        return userReadMapper.map(userRepository.findAllByFilter(filter, pageable));
     }
 
     public Optional<UserReadDto> findById(Long id) {
