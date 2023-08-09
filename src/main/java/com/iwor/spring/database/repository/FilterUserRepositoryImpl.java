@@ -4,10 +4,12 @@ import com.iwor.spring.database.entity.User;
 import com.iwor.spring.dto.PageResponse;
 import com.iwor.spring.dto.UserFilter;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.query.QueryUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +35,17 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
 
     @Override
     public List<User> findAllByFilter(UserFilter filter) {
-        var typedQuery = getUserTypedQuery(filter);
-        return typedQuery.getResultList();
+        var criteriaQuery = getUserCriteriaQuery(filter, Pageable.unpaged());
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
     @Override
     public PageResponse<User> findAllByFilter(UserFilter filter, Pageable pageable) {
         var pageNumber = pageable.getPageNumber();
         var pageSize = pageable.getPageSize();
-        var users = getUserTypedQuery(filter)
+
+        var typedQuery = getUserCriteriaQuery(filter, pageable);
+        var users = em.createQuery(typedQuery)
                 .setMaxResults(pageSize)
                 .setFirstResult(pageNumber * pageSize)
                 .getResultList();
@@ -59,26 +63,31 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         );
     }
 
-    private TypedQuery<User> getUserTypedQuery(UserFilter filter) {
+    private CriteriaQuery<User> getUserCriteriaQuery(UserFilter filter, Pageable pageable) {
         var cb = em.getCriteriaBuilder();
         var criteriaQuery = cb.createQuery(User.class);
 
-        var user = criteriaQuery.from(User.class);
+        var root = criteriaQuery.from(User.class);
 
         List<Predicate> predicates = new ArrayList<>();
         if (filter.firstname() != null) {
-            predicates.add(cb.like(cb.lower(user.get("firstname")), "%" + filter.firstname().toLowerCase() + "%"));
+            predicates.add(cb.like(cb.lower(root.get("firstname")), "%" + filter.firstname().toLowerCase() + "%"));
         }
         if (filter.lastname() != null) {
-            predicates.add(cb.like(cb.lower(user.get("lastname")), "%" + filter.lastname().toLowerCase() + "%"));
+            predicates.add(cb.like(cb.lower(root.get("lastname")), "%" + filter.lastname().toLowerCase() + "%"));
         }
         if (filter.birthDate() != null) {
-            predicates.add(cb.lessThan(user.get("birthDate"), filter.birthDate()));
+            predicates.add(cb.lessThan(root.get("birthDate"), filter.birthDate()));
         }
 
-        criteriaQuery.select(user)
-                .where(predicates.toArray(Predicate[]::new));
+        criteriaQuery.select(root)
+                .where(predicates.toArray(Predicate[]::new))
+                .orderBy(QueryUtils.toOrders(
+                        pageable.getSort().isEmpty()
+                                ? Sort.by("id")
+                                : pageable.getSort(),
+                        root, cb));
 
-        return em.createQuery(criteriaQuery);
+        return criteriaQuery;
     }
 }
