@@ -10,8 +10,10 @@ import com.iwor.spring.validation.group.Update;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
@@ -32,45 +39,61 @@ public class UserRestController {
     private final UserService userService;
 
     @GetMapping
-    public PageResponse<UserReadDto> findAll(UserFilter filter,
+    public ResponseEntity<PageResponse<UserReadDto>> findAll(UserFilter filter,
                                              Pageable pageable) {
-        return userService.findAll(filter, pageable);
+        return Optional.of(userService.findAll(filter, pageable))
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .body(content))
+                .orElseGet(notFound()::build);
     }
 
     @GetMapping("/{id}")
-    public UserReadDto findById(@PathVariable Long id) {
+    public ResponseEntity<UserReadDto> findById(@PathVariable Long id) {
         return userService.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .body(content))
+                .orElseGet(notFound()::build);
     }
 
-        @GetMapping(value = "/{id}/avatar", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public byte[] findAvatar(@PathVariable Long id) {
+    @GetMapping("/{id}/avatar")
+    public ResponseEntity<byte[]> findAvatar(@PathVariable Long id) {
         return userService.findAvatar(id)
-                .orElseThrow(() -> new ResponseStatusException((HttpStatus.NOT_FOUND)));
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+                        .contentLength(content.length)
+                        .body(content))
+                .orElseGet(notFound()::build);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserReadDto create(@RequestBody
-                              @Validated({Default.class, Creation.class})
-                              UserCreatEditDto dto) {
-        return userService.create(dto);
+    @PostMapping
+    public ResponseEntity<UserReadDto> create(@RequestBody
+                                              @Validated({Default.class, Creation.class})
+                                              UserCreatEditDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(userService.create(dto));
     }
 
     @PutMapping("/{id}")
-    public UserReadDto update(@PathVariable Long id,
+    public ResponseEntity<UserReadDto> update(@PathVariable Long id,
                               @RequestBody
                               @Validated({Default.class, Update.class})
                               UserCreatEditDto dto) {
         return userService.update(id, dto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .map(content -> ok()
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .body(content))
+                .orElseGet(notFound()::build);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
-        if (!userService.delete(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        return userService.delete(id)
+                ? noContent().build()
+                : notFound().build();
     }
 }
