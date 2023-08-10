@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -35,6 +36,8 @@ public class UserCreatEditDto {
     @NotNull
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     LocalDate birthDate;
+
+    MultipartFile image;
 
     @NotNull
     Role role;

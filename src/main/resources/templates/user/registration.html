@@ -6,7 +6,10 @@
 </head>
 <body>
 
-<form method="post" th:action="@{/users}" th:object="${user}">
+<form th:action="@{/users}"
+      method="post"
+      enctype="multipart/form-data"
+      th:object="${user}">
     <label for="username">Username:
         <input id="username" type="text" name="username" th:value="*{username}">
     </label>
@@ -21,6 +24,10 @@
     <br>
     <label for="birthDate">BirthDate:
         <input id="birthDate" type="date" name="birthDate" th:value="*{birthDate}">
+    </label>
+    <br>
+    <label for="image">Image:
+        <input id="image" type="file" name="image">
     </label>
     <br>
     <span>Role: </span>

@@ -9,7 +9,10 @@
 <a th:href="@{/users}"><button>Back</button></a>
 <br>
 <br>
-<form method="post" th:action="@{/users/{userId}/update(userId=*{id})}" th:object="${user}">
+<form th:action="@{/users/{userId}/update(userId=*{id})}"
+      method="post"
+      enctype="multipart/form-data"
+      th:object="${user}">
     <label for="id">ID:
         <input id="id" type="text" name="id" th:value="*{id}" disabled>
     </label>
@@ -28,6 +31,13 @@
     <br>
     <label for="birthDate">BirthDate:
         <input id="birthDate" type="date" name="birthDate" th:value="*{birthDate}">
+    </label>
+    <br>
+    <div th:if="*{image}">
+        <img th:src="@{/api/v1/users/{userId}/avatar(userId=*{id})}" alt="User image" width="200">
+    </div>
+    <label for="image">Image:
+        <input id="image" type="file" name="image">
     </label>
     <br>
     <span>Role: </span>

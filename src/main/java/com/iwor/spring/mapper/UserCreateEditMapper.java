@@ -6,8 +6,10 @@ import com.iwor.spring.database.repository.CompanyRepository;
 import com.iwor.spring.dto.UserCreatEditDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 @Component
@@ -33,6 +35,10 @@ public class UserCreateEditMapper implements Mapper<UserCreatEditDto, User> {
         user.setBirthDate(dto.getBirthDate());
         user.setRole(dto.getRole());
         user.setCompany(getCompany(dto.getCompanyId()));
+
+        Optional.ofNullable(dto.getImage())
+                .filter(Predicate.not(MultipartFile::isEmpty))
+                .ifPresent(img -> user.setImage(img.getOriginalFilename()));
         return user;
     }
 

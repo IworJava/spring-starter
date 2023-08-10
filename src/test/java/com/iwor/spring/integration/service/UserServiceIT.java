@@ -47,6 +47,7 @@ public class UserServiceIT extends IntegrationTestBase {
                 "first",
                 "last",
                 LocalDate.now(),
+                null,
                 Role.ADMIN,
                 COMPANY_1_ID
         );
@@ -72,6 +73,7 @@ public class UserServiceIT extends IntegrationTestBase {
                 "first",
                 "last",
                 LocalDate.now(),
+                null,
                 Role.USER,
                 COMPANY_1_ID
         );
