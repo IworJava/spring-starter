@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<a th:href="@{/users}"><button>Back</button></a>
+<div th:insert="~{fragment :: header}"></div>
+<div><a th:href="@{/users}"><button>Back</button></a></div>
 <br>
 <br>
 <form th:action="@{/users/{userId}/update(userId=*{id})}"

@@ -73,7 +73,8 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getFieldErrors());
             return "redirect:users/registration";
         }
-        return "redirect:/users/" + userService.create(dto).getId();
+        userService.create(dto);
+        return "redirect:/login";
     }
 
     // т.к. в http нет PUT

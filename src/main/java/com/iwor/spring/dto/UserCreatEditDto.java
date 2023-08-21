@@ -5,6 +5,7 @@ import com.iwor.spring.validation.UserInfo;
 import com.iwor.spring.validation.group.Creation;
 import com.iwor.spring.validation.group.Update;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -25,6 +26,9 @@ public class UserCreatEditDto {
     @NotEmpty
     @Email
     String username;
+
+    @NotBlank(groups = Creation.class)
+    String rawPassword;
 
     @Size(min = 1, max = 64, groups = Update.class)
     String firstname;
