@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.jpa.SpecHints;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.query.QueryUtils;
@@ -36,7 +37,9 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
     @Override
     public List<User> findAllByFilter(UserFilter filter) {
         var criteriaQuery = getUserCriteriaQuery(filter, Pageable.unpaged());
-        return em.createQuery(criteriaQuery).getResultList();
+        var typedQuery = em.createQuery(criteriaQuery);
+        typedQuery.setHint(SpecHints.HINT_SPEC_LOAD_GRAPH, withCompany());
+        return typedQuery.getResultList();
     }
 
     @Override
@@ -48,6 +51,7 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
         var users = em.createQuery(typedQuery)
                 .setMaxResults(pageSize)
                 .setFirstResult(pageNumber * pageSize)
+                .setHint(SpecHints.HINT_SPEC_LOAD_GRAPH, withCompany())
                 .getResultList();
 
         var cb = em.getCriteriaBuilder();
@@ -61,6 +65,12 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
                 pageSize,
                 totalElements
         );
+    }
+
+    private Object withCompany() {
+        var entityGraph = em.createEntityGraph(User.class);
+        entityGraph.addAttributeNodes("company");
+        return entityGraph;
     }
 
     private CriteriaQuery<User> getUserCriteriaQuery(UserFilter filter, Pageable pageable) {
