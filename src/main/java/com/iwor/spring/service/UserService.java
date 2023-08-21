@@ -11,6 +11,7 @@ import com.iwor.spring.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -39,6 +40,7 @@ public class UserService implements UserDetailsService {
                 .toList();
     }
 
+    @PostFilter("filterObject.role.equals('ADMIN')")
     public List<UserReadDto> findAll(UserFilter filter) {
         return userRepository.findAllByFilter(filter).stream()
                 .map(userReadMapper::map)
