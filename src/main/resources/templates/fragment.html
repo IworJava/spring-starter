@@ -7,7 +7,8 @@
 <body>
 
 <div th:fragment="header">
-    <form action="/logout" method="post">
+    <span th:text="${#authentication.name}">Username</span>
+    <form style="display: inline" action="/logout" method="post">
         <button type="submit">Logout</button>
     </form>
 </div>
