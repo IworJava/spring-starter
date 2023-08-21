@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import static com.iwor.spring.database.entity.Role.ADMIN;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -15,7 +17,12 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+        return new MvcRequestMatcher.Builder(introspector);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
 
@@ -28,7 +35,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .requestMatchers(
                                 antMatcher("/users/{\\d+}/delete"),
-                                antMatcher("/admin/**")
+                                mvc.pattern("/admin")
                         ).hasAuthority(ADMIN.getAuthority())
                         .anyRequest().authenticated()
                 )
