@@ -50,7 +50,7 @@ public class SecurityConfiguration {
                                 antMatcher("/login"),
                                 antMatcher("/users/registration"),
                                 antMatcher(HttpMethod.POST, "/users"),
-                                antMatcher("/v3/api/docs/**"),
+                                antMatcher("/v3/api-docs/**"),
                                 antMatcher("/swagger-ui/**")
                         ).permitAll()
                         .requestMatchers(
