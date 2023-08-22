@@ -99,7 +99,7 @@ public class UserService implements UserDetailsService {
 
     @SneakyThrows
     private void uploadImg(MultipartFile image) {
-        if (!image.isEmpty()) {
+        if (image != null && !image.isEmpty()) {
             imageService.upload(image.getOriginalFilename(), image.getInputStream());
         }
     }
