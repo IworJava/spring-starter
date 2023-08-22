@@ -1,7 +1,7 @@
 package com.iwor.spring.http.rest;
 
 import com.iwor.spring.dto.PageResponse;
-import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserCreateEditDto;
 import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.dto.UserReadDto;
 import com.iwor.spring.service.UserService;
@@ -70,7 +70,7 @@ public class UserRestController {
     @PostMapping
     public ResponseEntity<UserReadDto> create(@RequestBody
                                               @Validated({Default.class, Creation.class})
-                                              UserCreatEditDto dto) {
+                                              UserCreateEditDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -81,7 +81,7 @@ public class UserRestController {
     public ResponseEntity<UserReadDto> update(@PathVariable Long id,
                               @RequestBody
                               @Validated({Default.class, Update.class})
-                              UserCreatEditDto dto) {
+                              UserCreateEditDto dto) {
         return userService.update(id, dto)
                 .map(content -> ok()
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)

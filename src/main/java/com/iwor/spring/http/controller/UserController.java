@@ -1,7 +1,7 @@
 package com.iwor.spring.http.controller;
 
 import com.iwor.spring.database.entity.Role;
-import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserCreateEditDto;
 import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.service.CompanyService;
 import com.iwor.spring.service.UserService;
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") UserCreatEditDto user) {
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         model.addAttribute("companies", companyService.findAll());
@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(@Validated({Default.class, Creation.class}) UserCreatEditDto dto,
+    public String create(@Validated({Default.class, Creation.class}) UserCreateEditDto dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -84,7 +84,7 @@ public class UserController {
 //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable Long id,
-                         @Validated({Default.class, Update.class}) UserCreatEditDto dto,
+                         @Validated({Default.class, Update.class}) UserCreateEditDto dto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

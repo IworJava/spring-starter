@@ -3,7 +3,7 @@ package com.iwor.spring.service;
 import com.iwor.spring.database.entity.User;
 import com.iwor.spring.database.repository.UserRepository;
 import com.iwor.spring.dto.PageResponse;
-import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserCreateEditDto;
 import com.iwor.spring.dto.UserFilter;
 import com.iwor.spring.dto.UserReadDto;
 import com.iwor.spring.mapper.UserCreateEditMapper;
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserReadDto create(UserCreatEditDto dto) {
+    public UserReadDto create(UserCreateEditDto dto) {
         return Optional.of(dto)
                 .map(obj -> {
                     uploadImg(obj.getImage());
@@ -76,7 +76,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Optional<UserReadDto> update(Long id, UserCreatEditDto dto) {
+    public Optional<UserReadDto> update(Long id, UserCreateEditDto dto) {
         return userRepository.findById(id)
                 .map(obj -> {
                     uploadImg(dto.getImage());

@@ -1,7 +1,7 @@
 package com.iwor.spring.integration.service;
 
 import com.iwor.spring.database.entity.Role;
-import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserCreateEditDto;
 import com.iwor.spring.integration.IntegrationTestBase;
 import com.iwor.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class UserServiceIT extends IntegrationTestBase {
 
     @Test
     void create() {
-        UserCreatEditDto dto = new UserCreatEditDto(
+        UserCreateEditDto dto = new UserCreateEditDto(
                 "test@gmail.com",
                 "test",
                 "first",
@@ -70,7 +70,7 @@ public class UserServiceIT extends IntegrationTestBase {
 
     @Test
     void update() {
-        UserCreatEditDto dto = new UserCreatEditDto(
+        UserCreateEditDto dto = new UserCreateEditDto(
                 "test@gmail.com",
                 "test",
                 "first",

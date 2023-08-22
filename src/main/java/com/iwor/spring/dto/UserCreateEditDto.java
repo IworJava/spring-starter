@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @Value
 @FieldNameConstants
 @UserInfo(groups = {Creation.class})
-public class UserCreatEditDto {
+public class UserCreateEditDto {
 
     @NotEmpty
     @Email

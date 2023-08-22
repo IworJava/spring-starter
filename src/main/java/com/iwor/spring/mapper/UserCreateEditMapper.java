@@ -3,7 +3,7 @@ package com.iwor.spring.mapper;
 import com.iwor.spring.database.entity.Company;
 import com.iwor.spring.database.entity.User;
 import com.iwor.spring.database.repository.CompanyRepository;
-import com.iwor.spring.dto.UserCreatEditDto;
+import com.iwor.spring.dto.UserCreateEditDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -15,23 +15,23 @@ import java.util.function.Predicate;
 
 @RequiredArgsConstructor
 @Component
-public class UserCreateEditMapper implements Mapper<UserCreatEditDto, User> {
+public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
 
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User map(UserCreatEditDto fromObject, User toObject) {
+    public User map(UserCreateEditDto fromObject, User toObject) {
         return copy(fromObject, toObject);
     }
 
     @Override
-    public User map(UserCreatEditDto object) {
+    public User map(UserCreateEditDto object) {
         var user = new User();
         return copy(object, user);
     }
 
-    private User copy(UserCreatEditDto dto, User user) {
+    private User copy(UserCreateEditDto dto, User user) {
         user.setUsername(dto.getUsername());
         user.setFirstname(dto.getFirstname());
         user.setLastname(dto.getLastname());
