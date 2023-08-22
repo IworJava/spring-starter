@@ -72,3 +72,10 @@ spring:
 
   config:
     import: optional:secrets.yml
+
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: http://localhost:8081/swagger-ui/oauth2-redirect.html
+    oauth:
+      client-id: client-id
+      client-secret: client-secret
