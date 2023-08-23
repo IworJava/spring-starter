@@ -48,7 +48,6 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
                 .filter(Predicate.not(MultipartFile::isEmpty))
                 .map(MultipartFile::getOriginalFilename)
                 .ifPresent(user::setImage);
-//                .ifPresent(img -> user.setImage(img.getOriginalFilename()));
         return user;
     }
 

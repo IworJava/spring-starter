@@ -35,7 +35,7 @@
     </label>
     <br>
     <div th:if="*{image}">
-        <img th:src="@{/api/v1/users/{userId}/avatar(userId=*{id})}" alt="User image" width="200">
+        <img th:src="@{/api/v1/users/{userId}/avatar?name={image} (userId=*{id},image=*{image})}" alt="User image" width="200">
     </div>
     <label for="image">Image:
         <input id="image" type="file" name="image">
@@ -49,10 +49,11 @@
     <br>
     <label for="company">Company:
         <select id="company" name="companyId">
+            <option></option>
             <option th:each="company : ${companies}"
                     th:value="${company.id}"
                     th:text="${company.name}"
-                    th:selected="${company.id == user.company.id}">
+                    th:selected="${user.company != null && company.id == user.company.id}">
                 Company
             </option>
         </select>

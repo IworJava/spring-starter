@@ -55,6 +55,6 @@ public interface UserRepository extends
     @Query("update User u set u.role = :role where u.id in :ids")
     int updateRole(Role role, Long... ids);
 
-    @EntityGraph(attributePaths = "company")
+//    @EntityGraph(attributePaths = "company")
     Optional<User> findByUsername(String username);
 }

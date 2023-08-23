@@ -59,19 +59,25 @@ public class UserService implements UserDetailsService {
     public Optional<byte[]> findAvatar(Long id) {
         return userRepository.findById(id)
                 .map(User::getImage)
+                .flatMap(img -> findAvatar(id, img));
+    }
+
+    public Optional<byte[]> findAvatar(Long id, String imageName) {
+        return Optional.ofNullable(imageName)
                 .filter(Predicate.not(String::isBlank))
+                .map(img -> getFullImageName(id, img))
                 .flatMap(imageService::download);
     }
 
     @Transactional
     public UserReadDto create(UserCreateEditDto dto) {
         return Optional.of(dto)
-                .map(obj -> {
-                    uploadImg(obj.getImage());
-                    return userCreateEditMapper.map(obj);
-                })
+                .map(userCreateEditMapper::map)
                 .map(userRepository::save)
-                .map(userReadMapper::map)
+                .map(entity -> {
+                    uploadImg(entity.getId(), dto.getImage());
+                    return userReadMapper.map(entity);
+                })
                 .orElseThrow();
     }
 
@@ -79,7 +85,7 @@ public class UserService implements UserDetailsService {
     public Optional<UserReadDto> update(Long id, UserCreateEditDto dto) {
         return userRepository.findById(id)
                 .map(obj -> {
-                    uploadImg(dto.getImage());
+                    uploadImg(id, dto.getImage());
                     return userCreateEditMapper.map(dto, obj);
                 })
                 .map(userRepository::saveAndFlush)
@@ -98,10 +104,17 @@ public class UserService implements UserDetailsService {
     }
 
     @SneakyThrows
-    private void uploadImg(MultipartFile image) {
+    private void uploadImg(Long id, MultipartFile image) {
         if (image != null && !image.isEmpty()) {
-            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+            imageService.upload(
+                    getFullImageName(id, image.getOriginalFilename()),
+                    image.getInputStream()
+            );
         }
+    }
+
+    private String getFullImageName(Long id, String img) {
+        return String.format("%d-%s", id, img);
     }
 
     @Override
