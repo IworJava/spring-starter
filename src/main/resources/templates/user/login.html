@@ -6,31 +6,33 @@
 </head>
 <body>
 
+<div th:insert="~{fragment :: locale}"></div>
+
 <form th:action="@{/login}" method="post">
 <!--  <input type="hidden"-->
 <!--         th:name="${_csrf.getParameterName()}"-->
 <!--         th:value="${_csrf.getToken()}"/>-->
   <div style="color: brown" th:if="${param.error}">
-    <p>Bad credentials</p>
+    <p th:text="#{login.error}">Bad credentials</p>
   </div>
-  <label for="username">Username:
+  <label for="username"><span th:text="#{login.username}">Username</span>:
     <input id="username" type="text" name="username" required autofocus>
   </label>
   <br>
-  <label for="password">Password:
+  <label for="password"><span th:text="#{login.password}">Password</span>:
     <input id="password" type="password" name="password" required>
   </label>
   <br>
-  <button type="submit">Login</button>
+  <button type="submit" th:text="#{login.button.submit}">Login</button>
 </form>
 
 <div>
-  <div>Login with:</div>
+  <div><span th:text="#{login.login_with}">Login with</span>:</div>
   <a href="/oauth2/authorization/google">Google</a>
 </div>
 
 <form th:action="@{/users/registration}">
-  <button type="submit">Registration</button>
+  <button type="submit" th:text="#{login.button.registration}">Registration</button>
 </form>
 
 </body>
