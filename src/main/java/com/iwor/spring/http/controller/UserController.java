@@ -11,7 +11,6 @@ import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +42,6 @@ public class UserController {
         return "user/users";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
 //    @PreAuthorize("hasAuthority(T(com.iwor.spring.database.entity.Role).ADMIN.getAuthority())")
     @GetMapping("/{id}")
     public String findById(Model model,
