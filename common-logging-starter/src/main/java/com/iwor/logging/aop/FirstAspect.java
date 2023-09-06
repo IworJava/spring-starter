@@ -1,4 +1,4 @@
-package com.iwor.spring.aop;
+package com.iwor.logging.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -8,33 +8,13 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Aspect
-@Order(1)
-@Component
 public class FirstAspect {
 
-    @Pointcut("com.iwor.spring.aop.CommonPointcuts.isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
-    public void hasGetMapping() {
-    }
-
-    @Pointcut("com.iwor.spring.aop.CommonPointcuts.isControllerLayer() && args(org.springframework.ui.Model,..)")
-    public void hasModelParam() {
-    }
-
-    @Pointcut("com.iwor.spring.aop.CommonPointcuts.isControllerLayer() && @args(com.iwor.spring.validation.UserInfo,..)")
-    public void hasUserInfoParamAnnotation() {
-    }
-
-    @Pointcut("bean(*Service)")
-    public void isServiceLayerBean() {
-    }
-
-    @Pointcut("execution(public * com.iwor.spring.service.*Service.findById(*))")
+    @Pointcut("execution(public * com.iwor.*.service.*Service.findById(*))")
     public void anyFindByIdServiceMethod() {
     }
 

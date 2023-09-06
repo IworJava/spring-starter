@@ -1,18 +1,16 @@
-package com.iwor.spring.aop;
+package com.iwor.logging.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 public class CommonPointcuts {
 
     @Pointcut("@within(org.springframework.stereotype.Controller)")
     public void isControllerLayer() {
     }
 
-    @Pointcut("within(com.iwor.spring.service.*Service)")
+    @Pointcut("within(com.iwor.*.service.*Service)")
     public void isServiceLayer() {
     }
 
